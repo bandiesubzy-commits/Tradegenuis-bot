@@ -3,28 +3,19 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        "Welcome to Tradegenius AI 🤖\n\n"
-        "Your smart Forex assistant:\n"
-        "/trend - Check market trend\n"
-        "/buy - Buy signal analysis\n"
-        "/sell - Sell signal analysis\n"
-        "/start - Show this menu\n"
-        "/stop - Stop trading\n\n"
-        "Trade smart!"
-    )
+    await update.message.reply_text("Welcome to Tradegenius AI 🤖\n\nYour smart Forex assistant:\n/trend - Check market trend\n/buy - Buy signal\n/sell - Sell signal\n/start - Menu\n/stop - Stop\n\nTrade smart!")
 
 async def trend(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("📈 Market Trend: BULLISH on EUR/USD")
+    await update.message.reply_text("📈 Market Trend: BULLISH")
 
 async def buy(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("🟢 BUY Signal: EUR/USD Entry 1.0850 SL 1.0820 TP 1.0900")
+    await update.message.reply_text("🟢 BUY Signal: Wait for confirmation")
 
 async def sell(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("🔴 SELL Signal: GBP/USD Entry 1.2650 SL 1.2680 TP 1.2600")
+    await update.message.reply_text("🔴 SELL Signal: Wait for confirmation")
 
 async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("⏹️ Trading stopped.")
+    await update.message.reply_text("⏹️ Trading stopped")
 
 token = os.getenv("BOT_TOKEN")
 app = ApplicationBuilder().token(token).build()
