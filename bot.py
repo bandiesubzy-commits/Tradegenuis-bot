@@ -1,27 +1,28 @@
 import os
-from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+from telegram.ext import Updater, CommandHandler
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Welcome to Tradegenius AI 🤖\n\nYour smart Forex assistant:\n/trend - Check market trend\n/buy - Buy signal\n/sell - Sell signal\n/start - Menu\n/stop - Stop\n\nTrade smart!")
+def start(update, context):
+    update.message.reply_text("Welcome to Tradegenius AI 🤖\n\n/trend - Check trend\n/buy - Buy signal\n/sell - Sell signal\n/start - Menu\n/stop - Stop")
 
-async def trend(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("📈 Market Trend: BULLISH")
+def trend(update, context):
+    update.message.reply_text("📈 Trend: BULLISH")
 
-async def buy(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("🟢 BUY Signal: Wait for confirmation")
+def buy(update, context):
+    update.message.reply_text("🟢 BUY: Wait for confirmation")
 
-async def sell(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("🔴 SELL Signal: Wait for confirmation")
+def sell(update, context):
+    update.message.reply_text("🔴 SELL: Wait for confirmation")
 
-async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("⏹️ Trading stopped")
+def stop(update, context):
+    update.message.reply_text("⏹️ Stopped")
 
 token = os.getenv("BOT_TOKEN")
-app = ApplicationBuilder().token(token).build()
-app.add_handler(CommandHandler("start", start))
-app.add_handler(CommandHandler("trend", trend))
-app.add_handler(CommandHandler("buy", buy))
-app.add_handler(CommandHandler("sell", sell))
-app.add_handler(CommandHandler("stop", stop))
-app.run_polling()
+updater = Updater(token, use_context=True)
+dp = updater.dispatcher
+dp.add_handler(CommandHandler("start", start))
+dp.add_handler(CommandHandler("trend", trend))
+dp.add_handler(CommandHandler("buy", buy))
+dp.add_handler(CommandHandler("sell", sell))
+dp.add_handler(CommandHandler("stop", stop))
+updater.start_polling()
+updater.idle()
