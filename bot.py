@@ -1,27 +1,17 @@
 import os
-from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+from threading import Thread
+from flask import Flask
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Welcome to Tradegenius AI 🤖\n\n/trend - Check trend\n/buy - Buy signal\n/sell - Sell signal\n/start - Menu\n/stop - Stop")
+app = Flask(__name__)
 
-async def trend(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("📈 Market Trend: BULLISH")
+@app.route('/')
+def home():
+    return "Bot is alive! Tradegenuis is running."
 
-async def buy(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("🟢 BUY Signal: Confirmed")
+def run_web():
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
 
-async def sell(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("🔴 SELL Signal: Confirmed")
+Thread(target=run_web, daemon=True).start()
 
-async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("⏹️ Trading stopped")
-
-token = os.getenv("BOT_TOKEN")
-app = ApplicationBuilder().token(token).build()
-app.add_handler(CommandHandler("start", start))
-app.add_handler(CommandHandler("trend", trend))
-app.add_handler(CommandHandler("buy", buy))
-app.add_handler(CommandHandler("sell", sell))
-app.add_handler(CommandHandler("stop", stop))
-app.run_polling()
+# --- YOUR ORIGINAL BOT CODE STARTS BELOW ---
