@@ -121,3 +121,9 @@ def main():
 
 if __name__ == "__main__":https://api.telegram.org
     main()
+def main():
+    print("Starting Tradegenuis Signal Bot...")
+    application = Application.builder().token(BO...
+    application.add_handler(...)
+    print("Polling...")
+    application.run_polling(...)  <- PASTE JUST BEFORE THIS
