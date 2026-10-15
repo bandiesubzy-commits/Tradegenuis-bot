@@ -119,5 +119,5 @@ def main():
     print("Polling...")
     application.run_polling(drop_pending_updates=True)
 
-if __name__ == "__main__":
+if __name__ == "__main__":https://api.telegram.org
     main()
